@@ -1,45 +1,55 @@
 package Simple;
+
 public class Nodo {
-    public String dato;
-    public Nodo siguiente; //puntero enlace
-   
-    //Constructor para instertar al final
-    public Nodo(String d){
-        this.dato =d;
+    private String nombre;
+    private String destino;
+    private String horario;
+    public Nodo siguiente;
+
+    public Nodo(String nombre, String destino, String horario) {
+        this.nombre = nombre;
+        this.destino = destino;
+        this.horario = horario;
         this.siguiente = null;
     }
-    //Constructor para insertar al inicio
-    public Nodo (String d, Nodo n){
-        dato =d;
-        siguiente = n;
+
+    public Nodo(String nombre, String destino, String horario, Nodo n) {
+        this.nombre = nombre;
+        this.destino = destino;
+        this.horario = horario;
+        this.siguiente = n;
     }
 
-
-    public String getdato() {
-        return dato;
-    }
-    public String getsiguiente() {
-        return siguiente;
-    }
-    public String getAutor() {
-        return autor;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public String getDestino() {
+        return destino;
     }
 
-    public nodoSimple getSiguiente() {
+    public String getHorario() {
+        return horario;
+    }
+
+    public Nodo getSiguiente() {
         return siguiente;
     }
 
-    public void setSiguiente(nodoSimple siguiente) {
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public void setSiguiente(Nodo siguiente) {
         this.siguiente = siguiente;
     }
 }
+
