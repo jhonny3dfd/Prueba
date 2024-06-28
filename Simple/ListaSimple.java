@@ -1,4 +1,5 @@
 package Simple;
+
 import java.util.Scanner;
 
 public class ListaSimple {

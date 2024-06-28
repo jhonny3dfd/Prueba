@@ -1,5 +1,5 @@
 import java.util.*;
-import Doble.ListaDoble;
+
 import Simple.ListaSimple;
 
 
@@ -22,11 +22,11 @@ public class menu {
             break;
             
             case 2:
-            (scanner);
+            //(scanner);
             break;
 
             case 3:
-            (scanner);
+            //(scanner);
             break;
 
             case 4:

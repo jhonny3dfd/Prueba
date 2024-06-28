@@ -1,4 +1,4 @@
-package Colas;
+package Simple;
 import java.util.*;
 public class ProgramaCola {
     public static void ProgramaC(){
