@@ -18,8 +18,11 @@ public class menu {
 
            switch (opcion){
             case 1:
-            ListaSimple(scanner);
-            break;
+                ListaSimple lista = new ListaSimple();
+
+                // Imprimimos el menu
+                lista.menuVuelos(scanner);
+                break;
             
             case 2:
             //(scanner);
