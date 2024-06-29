@@ -1,5 +1,7 @@
 package Simple;
 
+import Doble.Nodo;
+
 import java.util.Scanner;
 
 public class ListaSimple {
