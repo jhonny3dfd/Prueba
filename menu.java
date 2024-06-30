@@ -1,12 +1,13 @@
 import java.util.*;
-import Simple.ListaSimple;
-import Simple.Vuelo;
+import Simple.*;
+import Doble.*;
 
 
 public class menu {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
+        ListaSimple listaVuelos = new ListaSimple();
         int opcion;
         do{System.out.println("-------Menu--------");
            System.out.println("1. Acceso a Vuelos");
@@ -18,7 +19,7 @@ public class menu {
 
            switch (opcion){
             case 1:
-                ListaSimple.menuVuelos(scanner);
+                ListaSimple.menuVuelos(scanner, listaVuelos);
                 break;
             
             case 2:
