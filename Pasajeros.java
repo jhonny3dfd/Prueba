@@ -52,9 +52,11 @@ public class Pasajeros {
         return buscado.getPasajero();
     }
 
-    private static void asociarPasajeros(String idVuelo) {
-
+        private static void asociarPasajeros(String idVuelo) {
+        System.out.println("Simulación: Pasajero asociado al vuelo con ID " + idVuelo);
     }
+
+
 
     public static void menuPasajeros(Scanner scanner) {
         System.out.println("Menu de Pasajeros");
