@@ -1,3 +1,5 @@
+package Doble;
+
 public class Pasajero {
 
     private String id, nombre, nacionalidad, asiento;
