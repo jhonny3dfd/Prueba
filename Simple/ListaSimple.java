@@ -30,7 +30,7 @@ public class ListaSimple {
                 String nuevonombre = scanner.nextLine();
                 System.out.println("Ingrese capacidad: ");
                 int nuevacapacidad = scanner.nextInt();
-                scanner.nextLine(); // Agregar esta línea para consumir el newline
+                scanner.nextLine(); 
                 actual.getVuelo().setDestino(nuevodestino);
                 actual.getVuelo().setHorario(nuevohorario);
                 actual.getVuelo().setNombre(nuevonombre);
@@ -133,7 +133,7 @@ public class ListaSimple {
                     String nombre = scanner.nextLine();
                     System.out.println("Ingrese capacidad: ");
                     int capacidad = scanner.nextInt();
-                    scanner.nextLine(); // Agregar esta línea para consumir el newline
+                    scanner.nextLine(); 
                     Vuelo vuelo = new Vuelo(destino, horario, nombre, capacidad);
                     listavuelo.Agregar(vuelo);
                     System.out.println("Vuelo Creado con exito");
