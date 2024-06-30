@@ -109,33 +109,37 @@ public class Vuelo {
     }
 
     public void Abordaje() {
-        ColaAbordaje cola = new ColaAbordaje(); 
+        Abordaje cola = new Abordaje();
 
         if (!EstaLleno()) {
             System.out.println("El vuelo no esta lleno");
             return; 
         }
+        // Primero los asientos PAR
         for (int i = 0; i < capacidad; i++) {
             Pasajero infopasajero = pasajeros[i];
             if (infopasajero != null) {
                 String asiento = infopasajero.getAsiento();
                 int numero = Integer.parseInt(asiento); 
                 if (numero % 2 == 0) {
-                    cola.agregar(infopasajero); 
+                    cola.agregarPasajero(infopasajero);
                 }
             }
         }
+
+        // Ahora los asientos IMPAR
         for (int i = 0; i < capacidad; i++) {
             Pasajero infopasajero = pasajeros[i];
             if (infopasajero != null) {
                 String asiento = infopasajero.getAsiento();
                 int numero = Integer.parseInt(asiento); 
                 if (numero % 2 != 0) {
-                    cola.agregar(infopasajero); 
+                    cola.agregarPasajero(infopasajero);
                 }
             }
         }
+
         System.out.println("Pasajeros en la cola de abordaje:");
-        cola.mostrar(); 
+        cola.mostrarPasajero();
     }
 }

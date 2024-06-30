@@ -1,6 +1,6 @@
 import java.util.*;
-
 import Simple.ListaSimple;
+import Simple.Vuelo;
 
 
 public class menu {
@@ -22,19 +22,25 @@ public class menu {
                 break;
             
             case 2:
-            //(scanner);
-            break;
+                Pasajeros.menuPasajeros(scanner);
+                break;
 
             case 3:
-            //(scanner);
-            break;
+                System.out.println("Ingrese el nombre del vuelo: ");
+                String nombre = scanner.nextLine();
+
+                ListaSimple nodo = new ListaSimple();
+                Vuelo vuelo = nodo.Buscar(nombre);
+
+                vuelo.Abordaje();
+
+                break;
 
             case 4:
             System.out.println("programa finalizado....");
             break;
            }
         }while (opcion !=4); {
-        scanner.close();
         }
 
     }

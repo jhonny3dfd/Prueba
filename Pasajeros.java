@@ -52,29 +52,32 @@ public class Pasajeros {
         return buscado.getPasajero();
     }
 
-        private static void asociarPasajeros(String idVuelo) {
-        System.out.println("Simulación: Pasajero asociado al vuelo con ID " + idVuelo);
+    private static void asociarPasajeros(String idVuelo, Pasajero pasajero) {
+
+        // if (vuelo.contienePasajero(pasajero.getId()) ) {
+            System.out.println("YA ESTA ESTE PASAJERO");
+            return;
+        //}
     }
 
 
 
     public static void menuPasajeros(Scanner scanner) {
-        System.out.println("Menu de Pasajeros");
-        System.out.println("1. Crear pasajeros");
-        System.out.println("2. Editar pasajero");
-        System.out.println("3. Eliminar pasajero");
-        System.out.println("4. Asociar pasajero a un vuelo");
-        System.out.println("5. Mostrar pasajeros de un vuelo");
-        System.out.println("0. Salir");
 
-        int opcion = scanner.nextInt();
         String idPasajero;
-
-        scanner.nextLine();
-
         Pasajero pasajero;
+        int opcion;
 
         do {
+            System.out.println("Menu de Pasajeros");
+            System.out.println("1. Crear pasajeros");
+            System.out.println("2. Editar pasajero");
+            System.out.println("3. Eliminar pasajero");
+            System.out.println("4. Asociar pasajero a un vuelo");
+            System.out.println("5. Mostrar pasajeros de un vuelo");
+            System.out.println("0. Salir");
+
+            opcion = scanner.nextInt();
             switch (opcion) {
                 case 1:
                     pasajero = crearPasajero();
@@ -97,7 +100,7 @@ public class Pasajeros {
                     pasajero = buscarPasajero(idPasajero);
 
                     String idVuelo = scanner.nextLine();
-                    asociarPasajeros(idVuelo);
+                    asociarPasajeros(idVuelo, pasajero);
                     break;
 
                 case 5:

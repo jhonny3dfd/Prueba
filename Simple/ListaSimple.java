@@ -85,11 +85,11 @@ public class ListaSimple {
             System.out.println("Lista de Vuelos vacia");
         }
     }
-    public Nodo Buscar(String nombre) {
+    public Vuelo Buscar(String nombre) {
         Nodo actual = inicio;
         while (actual != null) {
             if (actual.getVuelo().getNombre().equals(nombre)) {
-                return actual;
+                return actual.getVuelo();
             }
             actual = actual.getSiguiente();
         }
@@ -98,9 +98,9 @@ public class ListaSimple {
 
     }
     public void AsociarPasajero(String nombreVuelo, Pasajero pasajero) {
-        Nodo nodoVuelo = Buscar(nombreVuelo);
+        Vuelo nodoVuelo = Buscar(nombreVuelo);
         if (nodoVuelo != null) {
-            nodoVuelo.getVuelo().AsociarPasajero(pasajero);
+            nodoVuelo.AsociarPasajero(pasajero);
         } else {
             System.out.println("No se asocio el pasajero. Vuelo no encontrado.");
         }
@@ -149,19 +149,13 @@ public class ListaSimple {
             case 4:
                 listavuelo.imprimirLista();
                 break;
-            case 5:
-                System.out.println("Salinedo del menu");
+            case 0:
+                System.out.println("Saliendo del menu");
                 break;
             default:
                 System.out.println("Ingrese una opcion valida");
         }
-    }while (opcion != 5);
+    }while (opcion != 0);
 }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        menuVuelos(scanner);
-        scanner.close();
-    }
 }
 
