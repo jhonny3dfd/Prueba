@@ -1,4 +1,4 @@
-package Doble;
+package Simple;
 
 public class Nodo {
     private String nombre;
