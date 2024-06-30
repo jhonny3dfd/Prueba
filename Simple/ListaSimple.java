@@ -1,7 +1,5 @@
 package Simple;
 
-import Doble.Nodo;
-
 import java.util.Scanner;
 
 public class ListaSimple {
@@ -18,9 +16,11 @@ public class ListaSimple {
             fin = inicio;
         }
     }
+
     public boolean estaVacia() {
         return inicio == null;
     }
+
     public void agregarAlFinal(String nombre, String destino, String horario) {
         if (!estaVacia()) {
             fin.siguiente = new Nodo(nombre, destino, horario);
@@ -29,6 +29,7 @@ public class ListaSimple {
             inicio = fin = new Nodo(nombre, destino, horario);
         }
     }
+
     public String eliminarInicio() {
         String elemento = inicio.getNombre();
         if (inicio == fin) {
@@ -39,6 +40,7 @@ public class ListaSimple {
         }
         return elemento;
     }
+
     public String eliminarFinal() {
         String elemento = fin.getNombre();
         if (inicio == fin) {
@@ -75,6 +77,7 @@ public class ListaSimple {
             System.out.println("Vuelo no encontrado.");
         }
     }
+
     public void mostrarLista() {
         Nodo recorrer = inicio;
         while (recorrer != null) {
@@ -83,12 +86,18 @@ public class ListaSimple {
         }
         System.out.println();
     }
+
     public void eliminarVueloPorNombre(String nombre) {
         if (estaVacia()) {
             System.out.println("La lista está vacía. No se puede eliminar el vuelo.");
             return;
         }
+        boolean estaAsociado = false; 
 
+        if (estaAsociado) {
+            System.out.println("No se puede eliminar el vuelo porque está asociado a pasajeros.");
+            return;
+        }
         if (inicio.getNombre().equalsIgnoreCase(nombre)) {
             eliminarInicio();
             System.out.println("Vuelo eliminado exitosamente.");
@@ -109,6 +118,7 @@ public class ListaSimple {
             System.out.println("Vuelo eliminado exitosamente.");
         }
     }
+
     public static void menuVuelos(Scanner scanner) {
         ListaSimple vuelosList = new ListaSimple();
         int opcion;
@@ -164,7 +174,7 @@ public class ListaSimple {
                     break;
 
                 default:
-                    System.out.println("opcion invalida intentalo nuevamente");
+                    System.out.println("Opción inválida. Inténtalo nuevamente.");
                     break;
             }
         } while (opcion != 0);
@@ -173,6 +183,7 @@ public class ListaSimple {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         menuVuelos(scanner);
+        scanner.close();
     }
 }
 
