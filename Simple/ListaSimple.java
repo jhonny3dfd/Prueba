@@ -1,127 +1,115 @@
 package Simple;
-
+import Doble.*;
 import java.util.Scanner;
 
 public class ListaSimple {
-    protected Nodo inicio, fin;
+
+    Nodo inicio;
+    Scanner scanner = new Scanner(System.in);
 
     public ListaSimple() {
-        inicio = null;
-        fin = null;
+        this.inicio = null;
     }
 
-    public void agregarAlInicio(String nombre, String destino, String horario) {
-        inicio = new Nodo(nombre, destino, horario, inicio);
-        if (fin == null) {
-            fin = inicio;
-        }
+    public void Agregar(Vuelo vuelo) {
+        Nodo n = new Nodo(vuelo);
+        n.setSiguiente(inicio); 
+        inicio = n; 
     }
-
-    public boolean estaVacia() {
-        return inicio == null;
-    }
-
-    public void agregarAlFinal(String nombre, String destino, String horario) {
-        if (!estaVacia()) {
-            fin.siguiente = new Nodo(nombre, destino, horario);
-            fin = fin.siguiente;
-        } else {
-            inicio = fin = new Nodo(nombre, destino, horario);
-        }
-    }
-
-    public String eliminarInicio() {
-        String elemento = inicio.getNombre();
-        if (inicio == fin) {
-            inicio = null;
-            fin = null;
-        } else {
-            inicio = inicio.getSiguiente();
-        }
-        return elemento;
-    }
-
-    public String eliminarFinal() {
-        String elemento = fin.getNombre();
-        if (inicio == fin) {
-            inicio = null;
-            fin = null;
-        } else {
-            Nodo temporal = inicio;
-            while (temporal.getSiguiente() != fin) {
-                temporal = temporal.getSiguiente();
-            }
-            fin = temporal;
-            fin.setSiguiente(null);
-        }
-        return elemento;
-    }
-
-    public void editarVuelo(String nombre, String nuevoNombre, String nuevoDestino, String nuevoHorario) {
+    public void Editar(String nombre) {
         Nodo actual = inicio;
         boolean encontrado = false;
-        while (actual != null) {
-            if (actual.getNombre().equalsIgnoreCase(nombre)) {
-                if (nuevoNombre != null) actual.setNombre(nuevoNombre);
-                if (nuevoDestino != null) actual.setDestino(nuevoDestino);
-                if (nuevoHorario != null) actual.setHorario(nuevoHorario);
+        while (actual != null && !encontrado) {
+            if (actual.getVuelo().getNombre().equals(nombre)) {
+                System.out.println("Ingrese Destino: ");
+                String nuevodestino = scanner.nextLine();
+                System.out.println("Ingrese Horario: ");
+                String nuevohorario = scanner.nextLine();
+                System.out.println("Ingrese nombre: ");
+                String nuevonombre = scanner.nextLine();
+                System.out.println("Ingrese capacidad: ");
+                int nuevacapacidad = scanner.nextInt();
+                actual.getVuelo().setDestino(nuevodestino);
+                actual.getVuelo().setHorario(nuevohorario);
+                actual.getVuelo().setNombre(nuevonombre);
+                actual.getVuelo().setCapacidad(nuevacapacidad);
                 encontrado = true;
-                break;
             }
             actual = actual.getSiguiente();
         }
-
         if (encontrado) {
-            System.out.println("Vuelo editado exitosamente.");
+            System.out.println("El vuelo de nombre: " + nombre + ", ha sido editado con exito");
         } else {
-            System.out.println("Vuelo no encontrado.");
+            System.out.println("El nombre: " + nombre + " no fue encontrado");
         }
     }
+    public void Eliminar(String Nombre) {
+        if (inicio != null) {
+            Nodo actual = inicio;
+            Nodo anterior = null;
 
-    public void mostrarLista() {
-        Nodo recorrer = inicio;
-        while (recorrer != null) {
-            System.out.print("[" + recorrer.getNombre() + ", " + recorrer.getDestino() + ", " + recorrer.getHorario() + "]--->");
-            recorrer = recorrer.getSiguiente();
+            while (actual != null && !actual.getVuelo().getNombre().equals(Nombre)) {
+                anterior = actual;
+                actual = actual.getSiguiente();
+            }
+            if (actual != null) {
+
+                if (actual.getVuelo().getNumpasajeros() > 0) {
+                    System.out.println("No se puede eliminar el vuelo " + Nombre + " porque tiene pasajeros asociados.");
+                } else {
+                    if (anterior == null) {
+                        inicio = actual.getSiguiente();
+                    } else {
+                        anterior.setSiguiente(actual.getSiguiente());
+                    }
+                    System.out.println("Vuelo " + Nombre + " eliminado correctamente.");
+                }
+            } else {
+                System.out.println("El vuelo con nombre " + Nombre + " no fue encontrado.");
+            }
+        } else {
+            System.out.println("La lista de vuelos está vacía.");
         }
-        System.out.println();
+
     }
 
-    public void eliminarVueloPorNombre(String nombre) {
-        if (estaVacia()) {
-            System.out.println("La lista está vacía. No se puede eliminar el vuelo.");
-            return;
+    public void imprimirLista() {
+        Nodo recorre = inicio;
+        if (inicio != null) {
+            while (recorre != null) {
+                System.out.print(recorre.getVuelo().Mostrar()); 
+                recorre = recorre.getSiguiente();
+            }
+            System.out.println();
+        } else {
+            System.out.println("Lista de Vuelos vacia");
         }
-        boolean estaAsociado = false; 
-
-        if (estaAsociado) {
-            System.out.println("No se puede eliminar el vuelo porque está asociado a pasajeros.");
-            return;
-        }
-        if (inicio.getNombre().equalsIgnoreCase(nombre)) {
-            eliminarInicio();
-            System.out.println("Vuelo eliminado exitosamente.");
-            return;
-        }
+    }
+    public Nodo Buscar(String nombre) {
         Nodo actual = inicio;
-        while (actual.getSiguiente() != null && !actual.getSiguiente().getNombre().equalsIgnoreCase(nombre)) {
+        while (actual != null) {
+            if (actual.getVuelo().getNombre().equals(nombre)) {
+                return actual;
+            }
             actual = actual.getSiguiente();
         }
+        System.out.println("Vuelo no encontrado");
+        return null;
 
-        if (actual.getSiguiente() == null) {
-            System.out.println("Vuelo no encontrado.");
+    }
+    public void AsociarPasajero(String nombreVuelo, Pasajero pasajero) {
+        Nodo nodoVuelo = Buscar(nombreVuelo);
+        if (nodoVuelo != null) {
+            nodoVuelo.getVuelo().AsociarPasajero(pasajero);
         } else {
-            actual.setSiguiente(actual.getSiguiente().getSiguiente());
-            if (actual.getSiguiente() == null) {
-                fin = actual;
-            }
-            System.out.println("Vuelo eliminado exitosamente.");
+            System.out.println("No se asocio el pasajero. Vuelo no encontrado.");
         }
     }
 
     public static void menuVuelos(Scanner scanner) {
-        ListaSimple vuelosList = new ListaSimple();
+        ListaSimple listavuelo = new ListaSimple();
         int opcion;
+
         do {
             System.out.println("Menu de Vuelos:");
             System.out.println("1. Crear Vuelo");
@@ -135,50 +123,40 @@ public class ListaSimple {
 
             switch (opcion) {
                 case 1:
-                    System.out.println("Ingrese el nombre del nuevo vuelo: ");
-                    String nombre = scanner.nextLine();
-                    System.out.println("Ingrese el destino del nuevo vuelo: ");
-                    String destino = scanner.nextLine();
-                    System.out.println("Ingrese el horario del nuevo vuelo: ");
-                    String horario = scanner.nextLine();
-                    vuelosList.agregarAlFinal(nombre, destino, horario);
-                    break;
-
-                case 2:
-                    System.out.println("Ingrese el nombre del vuelo que quiere editar: ");
-                    String nombreEditar = scanner.nextLine();
-                    System.out.println("Ingrese el nuevo nombre del vuelo (o presione Enter para no cambiar): ");
-                    String nuevoNombre = scanner.nextLine();
-                    if (nuevoNombre.isEmpty()) nuevoNombre = null;
-                    System.out.println("Ingrese el nuevo destino del vuelo (o presione Enter para no cambiar): ");
-                    String nuevoDestino = scanner.nextLine();
-                    if (nuevoDestino.isEmpty()) nuevoDestino = null;
-                    System.out.println("Ingrese el nuevo horario del vuelo (o presione Enter para no cambiar): ");
-                    String nuevoHorario = scanner.nextLine();
-                    if (nuevoHorario.isEmpty()) nuevoHorario = null;
-                    vuelosList.editarVuelo(nombreEditar, nuevoNombre, nuevoDestino, nuevoHorario);
-                    break;
-
-                case 3:
-                    System.out.println("Ingrese el nombre del vuelo que quiere eliminar: ");
-                    String nombreEliminar = scanner.nextLine();
-                    vuelosList.eliminarVueloPorNombre(nombreEliminar);
-                    break;
-
-                case 4:
-                    vuelosList.mostrarLista();
-                    break;
-
-                case 0:
-                    System.out.println("Saliendo del menu");
-                    break;
-
-                default:
-                    System.out.println("Opción inválida. Inténtalo nuevamente.");
-                    break;
-            }
-        } while (opcion != 0);
-    }
+                System.out.println("---------------");
+                System.out.println("Ingrese Destino: ");
+                String destino = scanner.nextLine();
+                System.out.println("Ingrese Horario: ");
+                String horario = scanner.nextLine();
+                System.out.println("Ingrese nombre: ");
+                String nombre = scanner.nextLine();
+                System.out.println("Ingrese capacidad: ");
+                int capacidad = scanner.nextInt();
+                Vuelo vuelo = new Vuelo(destino, horario, nombre, capacidad);
+                listavuelo.Agregar(vuelo);
+                System.out.println("Vuelo Creado con exito");
+                break;
+            case 2:
+                System.out.println("Ingrese el nombre del vuelo: ");
+                nombre = scanner.nextLine();
+                listavuelo.Editar(nombre);
+                break;
+            case 3:
+                System.out.println("Ingrese el nombre del vuelo: ");
+                nombre = scanner.nextLine();
+                listavuelo.Eliminar(nombre);
+                break;
+            case 4:
+                listavuelo.imprimirLista();
+                break;
+            case 5:
+                System.out.println("Salinedo del menu");
+                break;
+            default:
+                System.out.println("Ingrese una opcion valida");
+        }
+    }while (opcion != 5);
+}
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
